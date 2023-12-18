@@ -18,7 +18,7 @@ pipeline{
         }
         stage('Monitor'){
             steps{
-                echo "This is a monitor stage"
+                echo "This is a monitor stage 2"
             }
         }
     }
