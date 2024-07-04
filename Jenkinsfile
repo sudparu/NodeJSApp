@@ -6,11 +6,12 @@ pipeline{
     environment{
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
         APP_NAME = 'webapplication'
+        USER_NAME=''
     }
     stages{
         stage('Build'){
             steps{
-                sh 'docker build -t kushaggarwal/$APP_NAME .'
+                sh 'docker build -t $USER_NAME/$APP_NAME .'
             }
         }
         stage('Login'){
@@ -20,12 +21,12 @@ pipeline{
         }
         stage('Push'){
             steps{
-                sh 'docker push kushaggarwal/$APP_NAME'
+                sh 'docker push $USER_NAME/$APP_NAME'
             }
         }
-        stage('Monitor'){
+        stage('Run the image locally'){
             steps{
-                echo "This is a monitor stage"
+               sh 'docker run -p 9000:3000 $USER_NAME/$APP_NAME'
             }
         }
     }
